@@ -44,3 +44,31 @@ ADD COLUMN owner_id int;
 ALTER TABLE animals
 ADD FOREIGN KEY (owner_id) REFERENCES owners(id)
 ON DELETE CASCADE;
+
+-- Create a table named vets
+CREATE TABLE vets (
+	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	name TEXT,
+	age INT,
+	date_of_graduation DATE
+);
+
+--  Create a "join table" called specializations
+CREATE TABLE specializations (
+	id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	species_id INT,
+	vets_id INT,
+	FOREIGN KEY (species_id) REFERENCES species(id),
+	FOREIGN KEY (vets_id) REFERENCES vets(id),
+	UNIQUE (species_id, vets_id)
+);
+
+--  Create a "join table" called visits
+CREATE TABLE visits (
+	id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	animal_id INT,
+	vet_id INT,
+	date_of_visit DATE,
+	FOREIGN KEY (animal_id) REFERENCES animals(id),
+	FOREIGN KEY (vet_id) REFERENCES vets(id)
+);
