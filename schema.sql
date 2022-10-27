@@ -10,3 +10,37 @@ CREATE TABLE animals (
 );
 
 ALTER TABLE animals ADD COLUMN species TEXT;
+
+-- Create a table named owners
+CREATE TABLE owners (
+	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	full_name TEXT,
+	age INT
+);
+
+-- Create a table named species
+CREATE TABLE species (
+	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	name TEXT
+);
+
+-- Modify animals table
+-- Remove column species
+ALTER TABLE animals
+DROP COLUMN species CASCADE;
+
+-- Add column species_id which is a foreign key referencing species table
+ALTER TABLE animals
+ADD COLUMN species_id int;
+
+ALTER TABLE animals
+ADD FOREIGN KEY (species_id) REFERENCES species(id)
+ON DELETE CASCADE;
+
+-- Add column owner_id which is a foreign key referencing the owners table
+ALTER TABLE animals
+ADD COLUMN owner_id int;
+
+ALTER TABLE animals
+ADD FOREIGN KEY (owner_id) REFERENCES owners(id)
+ON DELETE CASCADE;
