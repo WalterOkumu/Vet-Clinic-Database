@@ -72,3 +72,13 @@ CREATE TABLE visits (
 	FOREIGN KEY (animal_id) REFERENCES animals(id),
 	FOREIGN KEY (vet_id) REFERENCES vets(id)
 );
+
+-- Perfomance audit exercise
+-- Create a non clustered index for animal id on  visits table
+CREATE INDEX animal_id_asc ON visits(animal_id ASC);
+
+-- Create a non clustered index for vet id on visits table
+CREATE INDEX vet_id_asc ON visits(vet_id ASC);
+
+-- Create a non clustered index for email on owners table
+CREATE INDEX vet_id_desc ON owners(email DESC);
